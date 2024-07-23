@@ -25,6 +25,10 @@ export const SubscribersProvider: FC<Props> = ({ children }) => {
     fetchSubscribers();
   }, []);
 
+  const getSubscriberById = (id: string): Subscriber | undefined => {
+    return subscribers.find(sub => sub.id === id); // TODO: this query should be handled by a use case, and the use case should implement a new endpoint fetch
+  };
+
 
   const updateSubscriberQuota = (subscriber: Subscriber) => {
     const updatedListSubscribers = subscribers.map(sub => {
@@ -42,6 +46,7 @@ export const SubscribersProvider: FC<Props> = ({ children }) => {
     <SubscribersContext.Provider
       value={{
         subscribers,
+        getSubscriberById,
         updateSubscriberQuota,
       }}
     >
