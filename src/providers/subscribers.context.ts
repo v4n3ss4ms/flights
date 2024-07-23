@@ -4,11 +4,11 @@ import { Subscriber } from '../domain/subscriber.ts';
 export interface Subscribers {
   subscribers: Subscriber[];
   getSubscriberById: (id: string) => void;
-  updateSubscriberQuota: (subscriber: Subscriber) => void;
+  updateSubscriberQuota: (id: string, quota: number) => void;
 }
 
 export const SubscribersContext = createContext<Subscribers>({
   subscribers: [],
   getSubscriberById: (id: string) => {},
-  updateSubscriberQuota: (subscriber: Subscriber) => {},
+  updateSubscriberQuota: (id: string, quota: number) => {},
 });

@@ -30,17 +30,23 @@ export const SubscribersProvider: FC<Props> = ({ children }) => {
   };
 
 
-  const updateSubscriberQuota = (subscriber: Subscriber) => {
+  const updateSubscriberQuota = (id: string, quota: number) => {
     // TODO: this command should be handled by a new API call (new use case should implement a new endpoint post)
+    let hanBeenChanged = false; // TODO: this is just for emulating a kind of error
     const updatedListSubscribers = subscribers.map(sub => {
-      if (sub.id === subscriber.id) {
-        sub.quota = subscriber.quota;
+      if (sub.id === id) {
+        sub.quota = quota;
+        hanBeenChanged = true;
       }
 
       return sub;
     });
 
-    setSubscribers(updatedListSubscribers);
+    if (hanBeenChanged) {
+      setSubscribers(updatedListSubscribers);
+    } else {
+      throw new Error('The subscriber has not been found')
+    }
   };
 
   return (
