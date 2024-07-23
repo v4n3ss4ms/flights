@@ -1,7 +1,7 @@
 import { createContext } from 'react';
 import { Subscriber } from '../domain/subscriber.ts';
 
-interface Subscribers {
+export interface Subscribers {
   subscribers: Subscriber[];
   getSubscriberById: (id: string) => void;
   updateSubscriberQuota: (subscriber: Subscriber) => void;
