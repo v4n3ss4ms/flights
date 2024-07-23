@@ -26,11 +26,12 @@ export const SubscribersProvider: FC<Props> = ({ children }) => {
   }, []);
 
   const getSubscriberById = (id: string): Subscriber | undefined => {
-    return subscribers.find(sub => sub.id === id); // TODO: this query should be handled by a use case, and the use case should implement a new endpoint fetch
+    return subscribers.find(sub => sub.id === id); // TODO: this query should be handled by a new API call (new use case should implement a new endpoint get)
   };
 
 
   const updateSubscriberQuota = (subscriber: Subscriber) => {
+    // TODO: this command should be handled by a new API call (new use case should implement a new endpoint post)
     const updatedListSubscribers = subscribers.map(sub => {
       if (sub.id === subscriber.id) {
         sub.quota = subscriber.quota;
