@@ -10,9 +10,10 @@ import {
 } from '@mui/material';
 
 import { useState } from 'react';
-import ToastMsg, { SeverityType } from '../toast-msg/toast-msg.component.tsx';
+import ToastMsg from '../toast-msg/toast-msg.component.tsx';
 import EditQuotaModal from '../edit-quota-modal/modal.component.tsx';
 import { Subscriber } from '../../domain/subscriber.ts';
+import { SeverityToast } from '../../domain/severityToast.ts';
 
 
 export default function SubscribersList() {
@@ -20,7 +21,7 @@ export default function SubscribersList() {
 
   const [openModal, setOpenModal] = useState(false);
   const [openToast, setOpenToast] = useState(false);
-  const [toastSeverity, setToastSeverity] = useState<SeverityType>('success');
+  const [toastSeverity, setToastSeverity] = useState<SeverityToast>('success');
   const [toastMsg, setToastMsg] = useState('');
   const [selectedSubscriber, setSelectedSubscriber] = useState<Subscriber | null>(null);
 

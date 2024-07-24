@@ -2,14 +2,12 @@ import { Fragment } from 'react';
 import { IconButton } from '@mui/material';
 import { Close as CloseIcon}  from '@mui/icons-material';
 import {Snackbar} from '@mui/joy';
-
-
-export type SeverityType = 'primary' | 'neutral' | 'danger' | 'success' | 'warning';
+import { SeverityToast } from '../../domain/severityToast';
 
 interface ToastMsgProps {
   isOpen: boolean;
   setIsOpen: (shouldOpenToast: boolean) => void;
-  severity: SeverityType;
+  severity: SeverityToast;
   msg: string;
 }
 
