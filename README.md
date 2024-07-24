@@ -1,30 +1,75 @@
-# React + TypeScript + Vite
+# Flights
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Simple UI for editing a subscriber available flights
 
-Currently, two official plugins are available:
+## Table of content
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- [Flights](#flights)
+  * [Development server](#development-server)
+    + [1 - Install dependencies](#1---install-dependencies)
+    + [2 - Start the application](#2---start-the-application)
+    + [3 - Navigate](#3---navigate)
+  * [Extra information](#extra-information)
+    + [Use Cases](#use-cases)
+    + [Business information](#business-information)
+    + [TODO comments](#todo-comments)
+    + [Further information](#further-information)
 
-## Expanding the ESLint configuration
+## Development server
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+### 1 - Install dependencies
 
-- Configure the top-level `parserOptions` property like this:
+Run `npm install`
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json', './tsconfig.app.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
-```
+### 2 - Start the application
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+Run `npm run dev` for a dev server.
+
+The application will automatically reload if you change any of the source files.
+
+### 3 - Navigate
+
+`http://localhost:5173/`
+
+
+## Extra information
+
+### Use Cases
+
+There is just one Use Case (`get-subscribers.qry.ts`).
+All the operations should be in their own Use Case with the proper API Call (typed, repositories, cache if needed, etc).
+For instance:
+
+`GET: /v1/public/subscribers`
+
+`GET: /v1/public/subscribers/{subscriberId}`
+
+Parameters
+  - **subscriberId** (string): The ID of the subscriber to update.
+  
+`PUT: /v1/public/subscribers/{subscriberId}`
+
+Parameters
+
+- **subscriberId** (string): The ID of the subscriber to update.
+- **updatedQuota** (number): The new quota for the subscriber.
+- **motive** (string): The reason for the quota update.
+
+### Business information
+
+- Business information such max & min number of flights o motives lists should not be hardcoded. 
+   - The magic numbers could be available through properties files.
+   - Motives could be retrieved with CMS keys (for getting different translations).
+
+### TODO comments
+
+You can find some of these appreciations within the code.
+
+
+### Further information
+
+I kept this project as simple as possible.
+
+For more complex architecture, please take a look into my [Marvel repo](https://github.com/v4n3ss4ms/marvel/) (React + TS + SASS +  Jest + Playwright)
+
+For an extensive testing example, please take a look into my [MoviesApp repo](https://github.com/v4n3ss4ms/moviesApp) (Angular + TS + Jest).
