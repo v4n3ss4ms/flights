@@ -9,6 +9,7 @@ Simple UI for editing a subscriber available flights
     + [1 - Install dependencies](#1---install-dependencies)
     + [2 - Start the application](#2---start-the-application)
     + [3 - Navigate](#3---navigate)
+  * [Running unit tests](#running-unit-tests)
   * [Extra information](#extra-information)
     + [Use Cases](#use-cases)
     + [Business information](#business-information)
@@ -31,6 +32,10 @@ The application will automatically reload if you change any of the source files.
 
 `http://localhost:5173/`
 
+
+## Running unit tests
+
+Run `npm run test` to execute the unit tests.
 
 ## Extra information
 
