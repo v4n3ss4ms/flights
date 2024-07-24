@@ -20,15 +20,20 @@ export default function EditQuotaModal(props: EditQuotaModalProps) {
   const { isOpen, setIsOpen, subscriber, onSave } = props;
   const [updatedQuota, setUpdatedQuota] = useState(0);
   const [motive, setMotive] = useState('');
-  const MIN_FLIGHTS = 0; // TODO: this business magic should be in a constants file or properties file
-  const MAX_FLIGHTS = 3; // TODO: this business magic should be in a constants file or properties file
+
+  // TODO: these business magic numbers should be in a constants file or properties file
+  const MIN_FLIGHTS = 0;
+  const MAX_FLIGHTS = 3;
+
+  // TODO: these business magic strings arrays should be used through CMS keys in order to have i18n
+  const ADD_FLIGHT_MOTIVES_LIST = ['Subscriber canceled flight', 'Airline canceled flight', 'Customer compensation', 'Other'];
+  const REMOVE_FLIGHT_MOTIVES_LIST = ['Flight not redeposited after a flight cancellation', 'Subscriber had log in or password issues', 'Subscriber had issues when booking', 'Subscription has not renewed correctly', 'Other'];
 
   useEffect(() => {
     if (subscriber) {
       setUpdatedQuota(subscriber.quota);
     }
   }, [subscriber]);
-
 
   const onHandleMotiveChange = (
     event: SyntheticEvent | null,
@@ -48,6 +53,23 @@ export default function EditQuotaModal(props: EditQuotaModalProps) {
     event.preventDefault();
     onSave(subscriber?.id || '', updatedQuota, motive);
     setIsOpen(false);
+  };
+
+  const isQuotaChanged = () => !(updatedQuota === subscriber?.quota);
+  const isSubmitDisabled = () => !motive || !isQuotaChanged();
+
+  const getMotives = () => {
+    const isAdding = (updatedQuota - (subscriber?.quota ?? 0)) > 0;
+    const isRemoving = (updatedQuota - (subscriber?.quota ?? 0)) < 0;
+
+    if (isAdding) {
+      return ADD_FLIGHT_MOTIVES_LIST;
+    }
+    if (isRemoving) {
+      return REMOVE_FLIGHT_MOTIVES_LIST;
+    }
+
+    return [];
   };
 
   if (!subscriber) {
@@ -79,6 +101,7 @@ export default function EditQuotaModal(props: EditQuotaModalProps) {
             display="flex"
             alignItems="center"
             gap={4}
+            sx={{ marginTop: 2 }}
           >
             <IconButton aria-label="Remove flight" disabled={updatedQuota === MIN_FLIGHTS}
                         onClick={() => onHandleQuotaChange(ChangeQuota.remove)}><RemoveCircleIcon /></IconButton>
@@ -93,18 +116,24 @@ export default function EditQuotaModal(props: EditQuotaModalProps) {
               variant="outlined"
               required
               onChange={onHandleMotiveChange}
+              disabled={!isQuotaChanged()}
+              sx={{ width: 400 }}
             >
-              <Option value="dog">Dog</Option>
-              <Option value="cat">Cat</Option>
-              <Option value="fish">Fish</Option>
-              <Option value="bird">Bird</Option>
+              {getMotives().map(motive => {
+                return <Option value={motive} key={motive}>{motive}</Option>;
+              })}
             </Select>
           </Box>
-          <Box
-            alignItems="center"
+
+          <Button
+            aria-label="Save changes"
+            fullWidth={true}
+            sx={{ marginTop: 5 }}
+            type="submit"
+            disabled={isSubmitDisabled()}
           >
-            <Button type="submit" disabled={!motive || (updatedQuota === subscriber?.quota)}>Save changes</Button>
-          </Box>
+            Save changes
+          </Button>
         </form>
       </ModalDialog>
     </Modal>
