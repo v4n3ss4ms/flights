@@ -120,7 +120,7 @@ export default function EditQuotaModal(props: EditQuotaModalProps) {
               sx={{ width: 400 }}
             >
               {getMotives().map(motive => {
-                return <Option value={motive} key={motive}>{motive}</Option>;
+                return <Option aria-label={motive} value={motive} key={motive}>{motive}</Option>;
               })}
             </Select>
           </Box>
